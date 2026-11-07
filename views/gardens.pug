@@ -1,0 +1,22 @@
+
+extends layout
+
+block content
+  h1= title
+  p Welcome to the Gardens Search Results page.
+
+  - var results = [{name: "Rose Garden", location: "Missouri", areaAcres: 12, yearOpened: 1998}, {name: "Green Valley Garden", location: "Kansas", areaAcres: 20, yearOpened: 2005}, {name: "Queens Botanical Garden", location: "Texas", areaAcres: 35, yearOpened: 2010}]
+
+  div.container-fluid
+    div.row
+      each garden, index in results
+        div.col-sm-2(onclick=`buy(${index})`)
+          h4= garden.name
+          p Location: #{garden.location}
+          p Area: #{garden.areaAcres} acres
+          p Opened: #{garden.yearOpened}
+
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}`);
+    }
