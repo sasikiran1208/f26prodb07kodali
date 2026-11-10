@@ -95,7 +95,7 @@ async function recreateDB() {
   }
 }
 
-let reseed = true;
+let reseed = false;
 
 db.once('open', function() {
   if (reseed) {
