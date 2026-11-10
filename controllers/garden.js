@@ -18,9 +18,27 @@ exports.garden_detail = function(req, res) {
   res.send('NOT IMPLEMENTED: Garden detail: ' + req.params.id);
 };
 
-exports.garden_create_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: Garden create POST');
+
+exports.garden_create_post = async function(req, res) {
+  console.log(req.body);
+
+  let garden = new Garden();
+
+  garden.name = req.body.name;
+  garden.location = req.body.location;
+  garden.areaAcres = req.body.areaAcres;
+  garden.yearOpened = req.body.yearOpened;
+
+  try {
+    let result = await garden.save();
+    res.send(result);
+  }
+  catch (err) {
+    res.status(500);
+    res.send({ error: err.message });
+  }
 };
+
 
 exports.garden_delete = function(req, res) {
   res.send('NOT IMPLEMENTED: Garden delete DELETE ' + req.params.id);
