@@ -1,9 +1,18 @@
 
 var Garden = require('../models/garden');
 
-exports.garden_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: Garden list');
+
+exports.garden_list = async function(req, res) {
+  try {
+    const gardens = await Garden.find();
+    res.send(gardens);
+  }
+  catch (err) {
+    res.status(500);
+    res.send({ error: err.message });
+  }
 };
+
 
 exports.garden_detail = function(req, res) {
   res.send('NOT IMPLEMENTED: Garden detail: ' + req.params.id);
