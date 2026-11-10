@@ -2,10 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('gardens', {
-    title: 'Search Results - Gardens'
-  });
-});
+var garden_controller = require('../controllers/garden');
+
+router.get('/', garden_controller.garden_view_all_Page);
 
 module.exports = router;
