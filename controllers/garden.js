@@ -64,3 +64,20 @@ exports.garden_view_all_Page = async function(req, res) {
   }
 };
 
+
+exports.garden_detail = async function(req, res) {
+  try {
+    let result = await Garden.findById(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({ error: "Garden not found" });
+    }
+
+    res.send(result);
+  } catch (err) {
+    res.status(500).json({ error: "Unable to find garden" });
+  }
+};
+
+
+
