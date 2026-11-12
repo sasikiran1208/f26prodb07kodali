@@ -17,6 +17,4 @@ router.get('/gardens/:id', garden_controller.garden_detail);
 
 router.get('/gardens', garden_controller.garden_list);
 
-router.get('/gardens/:id', garden_controller.garden_detail);
-
 module.exports = router;

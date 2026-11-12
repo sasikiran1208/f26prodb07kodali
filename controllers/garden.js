@@ -14,11 +14,6 @@ exports.garden_list = async function(req, res) {
 };
 
 
-exports.garden_detail = function(req, res) {
-  res.send('NOT IMPLEMENTED: Garden detail: ' + req.params.id);
-};
-
-
 exports.garden_create_post = async function(req, res) {
   console.log(req.body);
 
@@ -44,9 +39,37 @@ exports.garden_delete = function(req, res) {
   res.send('NOT IMPLEMENTED: Garden delete DELETE ' + req.params.id);
 };
 
-exports.garden_update_put = function(req, res) {
-  res.send('NOT IMPLEMENTED: Garden update PUT ' + req.params.id);
+
+
+exports.garden_update_put = async function(req, res) {
+  try {
+    let toUpdate = await Garden.findById(req.params.id);
+
+    if (!toUpdate) {
+      return res.status(404).json({ error: "Garden not found" });
+    }
+
+    if (req.body.name)
+      toUpdate.name = req.body.name;
+
+    if (req.body.location)
+      toUpdate.location = req.body.location;
+
+    if (req.body.areaAcres !== undefined)
+      toUpdate.areaAcres = req.body.areaAcres;
+
+    if (req.body.yearOpened !== undefined)
+      toUpdate.yearOpened = req.body.yearOpened;
+
+    let result = await toUpdate.save();
+    res.send(result);
+  }
+  catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
+
+
 
 
 
