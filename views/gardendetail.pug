@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  //- Pair each label with the value from the Garden document.
+  dl
+    dt Garden ID
+    dd= garden._id
+    dt Name
+    dd= garden.name
+    dt Location
+    dd= garden.location
+    dt Area (acres)
+    dd= garden.areaAcres
+    dt Year opened
+    dd= garden.yearOpened

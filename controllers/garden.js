@@ -1,5 +1,6 @@
 
 var Garden = require('../models/garden');
+var createError = require('http-errors');
 
 
 exports.garden_list = async function(req, res) {
@@ -98,6 +99,21 @@ exports.garden_view_all_Page = async function(req, res) {
     res.status(500);
     res.send({ error: err.message });
   }
+};
+
+
+exports.garden_view_one_Page = async function(req, res, next) {
+  // A MongoDB ObjectId must contain 24 hexadecimal characters.
+  if (typeof req.query.id !== 'string' || !/^[a-f0-9]{24}$/i.test(req.query.id)) {
+    return next(createError(400, 'A valid Garden ID is required.'));
+  }
+
+  const garden = await Garden.findById(req.query.id);
+  if (!garden) {
+    return next(createError(404, 'Garden not found.'));
+  }
+
+  res.render('gardendetail', { title: 'Garden Details', garden });
 };
 
 
