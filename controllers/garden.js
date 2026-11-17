@@ -35,8 +35,21 @@ exports.garden_create_post = async function(req, res) {
 };
 
 
-exports.garden_delete = function(req, res) {
-  res.send('NOT IMPLEMENTED: Garden delete DELETE ' + req.params.id);
+exports.garden_delete = async function(req, res) {
+  try {
+    // Delete the garden and return the document that was removed.
+    const deletedGarden = await Garden.findByIdAndDelete(req.params.id);
+    if (!deletedGarden) {
+      return res.status(404).json({ error: 'Garden not found' });
+    }
+    return res.json(deletedGarden);
+  } catch (err) {
+    // Mongoose raises a CastError when the ID format is invalid.
+    if (err.name === 'CastError' && err.path === '_id') {
+      return res.status(400).json({ error: 'Invalid Garden ID' });
+    }
+    return res.status(500).json({ error: 'Unable to delete garden' });
+  }
 };
 
 
