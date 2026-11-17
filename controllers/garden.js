@@ -117,6 +117,11 @@ exports.garden_view_one_Page = async function(req, res, next) {
 };
 
 
+exports.garden_create_Page = function(req, res) {
+  res.render('gardencreate', { title: 'Garden Create' });
+};
+
+
 exports.garden_detail = async function(req, res) {
   try {
     let result = await Garden.findById(req.params.id);

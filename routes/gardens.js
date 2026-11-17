@@ -9,4 +9,7 @@ router.get('/', garden_controller.garden_view_all_Page);
 // Show one garden using the ID in the query string.
 router.get('/detail', garden_controller.garden_view_one_Page);
 
+// Show the form for creating a garden.
+router.get('/create', garden_controller.garden_create_Page);
+
 module.exports = router;
