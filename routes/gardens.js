@@ -12,4 +12,7 @@ router.get('/detail', garden_controller.garden_view_one_Page);
 /* GET create garden page */
 router.get('/create', garden_controller.garden_create_Page);
 
+/* GET create update page */
+router.get('/update', garden_controller.garden_update_Page);
+
 module.exports = router;

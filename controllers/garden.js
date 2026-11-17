@@ -36,6 +36,22 @@ exports.garden_create_post = async function(req, res) {
 };
 
 
+// Handle building the view for updating a garden.
+// query provides the id
+exports.garden_update_Page = async function(req, res) {
+  console.log("update view for item " + req.query.id)
+  try {
+    let result = await Garden.findById(req.query.id)
+    res.render('gardenupdate', { title: 'Garden Update', toShow: result });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};
+
+
+
 exports.garden_delete = async function(req, res) {
   try {
     // Delete the garden and return the document that was removed.
