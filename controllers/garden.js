@@ -117,8 +117,16 @@ exports.garden_view_one_Page = async function(req, res, next) {
 };
 
 
+// Handle building the view for creating a garden.
 exports.garden_create_Page = function(req, res) {
-  res.render('gardencreate', { title: 'Garden Create' });
+  console.log("create view")
+  try {
+    res.render('gardencreate', { title: 'Garden Create' });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
 };
 
 
