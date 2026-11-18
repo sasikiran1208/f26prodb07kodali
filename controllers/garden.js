@@ -51,6 +51,21 @@ exports.garden_update_Page = async function(req, res) {
 };
 
 
+ // Handle a delete one view with id from query
+exports.garden_delete_Page = async function(req, res) {
+  console.log("Delete view for id " + req.query.id)
+  try {
+    let result = await Garden.findById(req.query.id)
+    res.render('gardendelete', { title: 'Garden Delete', toShow: result });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};
+
+
+
 
 exports.garden_delete = async function(req, res) {
   try {

@@ -1,0 +1,56 @@
+
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let gardenid = toShow._id
+    - let gardenname = toShow.name
+    - let gardenlocation = toShow.location
+    - let gardenarea = toShow.areaAcres
+    - let gardenyear = toShow.yearOpened
+    - let actionid = "/resource/gardens/" + gardenid
+    script let actionid = "#{actionid}"
+
+    div
+      div.row
+        div(class='gardenAttr mr-3') Garden ID is:
+        div #{gardenid}
+      div.row
+        div(class='gardenAttr mr-3') Garden Name is:
+        div #{gardenname}
+      div.row
+        div(class='gardenAttr mr-3') Garden Location is:
+        div #{gardenlocation}
+      div.row
+        div(class='gardenAttr mr-3') Garden Area is:
+        div #{gardenarea}
+      div.row
+        div(class='gardenAttr mr-3') Garden Year Opened is:
+        div #{gardenyear}
+
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+    script.
+      function cancel() {
+        // Go back to the home page for the garden collection
+        window.location.href='/gardens'
+      }
+
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json();
+        }).then((body) => {
+          alert("Delete succeded")
+          window.location.href='/gardens'
+        });
+      }
