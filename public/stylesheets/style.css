@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+/* Garden delete page styling */
+.gardenAttr {
+  background-color: aquamarine;
+  width: 160px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+

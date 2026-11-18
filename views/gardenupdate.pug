@@ -4,42 +4,45 @@ extends layout
 block content
   h1= title
 
-  - let gardenid = toShow._id
-  - let gardenname = toShow.name
-  - let gardenlocation = toShow.location
-  - let gardenarea = toShow.areaAcres
-  - let gardenyear = toShow.yearOpened
+  if (toShow == null)
+    h2 No instance to update
+  else
+    - let gardenid = toShow._id
+    - let gardenname = toShow.name
+    - let gardenlocation = toShow.location
+    - let gardenarea = toShow.areaAcres
+    - let gardenyear = toShow.yearOpened
 
-  div.row(class='mb-2')
-    div.mr-1 ID is
-    div #{gardenid}
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{gardenid}
 
-  - let actionid = "/resource/gardens/" + gardenid
-  form(id='GardenForm', action=actionid, method="PUT")
-    div.form-group
-      label(for='name') Garden Name
-      input#name(type='text', name='name', value=gardenname)
-    div.form-group
-      label(for='location') Location
-      input#location(type='text', name='location', value=gardenlocation)
-    div.form-group
-      label(for='areaAcres') Area in acres
-      input#areaAcres(type='number', name='areaAcres', value=gardenarea)
-    div.form-group
-      label(for='yearOpened') Year opened
-      input#yearOpened(type='number', name='yearOpened', value=gardenyear)
-    input(type="submit")
+    - let actionid = "/resource/gardens/" + gardenid
+    form(id='GardenForm', action=actionid, method="PUT")
+      div.form-group
+        label(for='name') Garden Name
+        input#name(type='text', name='name', value=gardenname)
+      div.form-group
+        label(for='location') Location
+        input#location(type='text', name='location', value=gardenlocation)
+      div.form-group
+        label(for='areaAcres') Area in acres
+        input#areaAcres(type='number', name='areaAcres', value=gardenarea)
+      div.form-group
+        label(for='yearOpened') Year opened
+        input#yearOpened(type='number', name='yearOpened', value=gardenyear)
+      input(type="submit")
 
-  script.
-    document.forms['GardenForm'].addEventListener('submit', (event) => {
-      event.preventDefault();
-      // Send the updated garden values to the REST API.
-      fetch(event.target.action, {
-        method: 'PUT',
-        body: new URLSearchParams(new FormData(event.target))
-      }).then((resp) => {
-        return resp.json();
-      }).then((body) => {
-        alert("Update succeded")
+    script.
+      document.forms['GardenForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Send the updated garden values to the REST API.
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target))
+        }).then((resp) => {
+          return resp.json();
+        }).then((body) => {
+          alert("Update succeded")
+        });
       });
-    });
