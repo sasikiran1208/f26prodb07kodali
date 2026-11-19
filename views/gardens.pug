@@ -5,18 +5,17 @@ block content
   h1= title
   p Welcome to the Gardens Search Results page.
 
-  
-
   div.container-fluid
     div.row
       each garden, index in results
-        div.col-sm-2(onclick=`buy(${index})`)
+        div.col-sm-2
           h4= garden.name
           p Location: #{garden.location}
           p Area: #{garden.areaAcres} acres
           p Opened: #{garden.yearOpened}
+          button.btn.btn-primary(onclick=`dispatch("/gardens/update?id=${garden._id}")`) Update
 
   script.
-    function buy(index) {
-      alert(`You purchased item ${index}`);
+    function dispatch(path) {
+      window.location.href = path;
     }
